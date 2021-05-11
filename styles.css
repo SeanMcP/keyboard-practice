@@ -1,0 +1,45 @@
+body {
+  --text-color: hsl(0, 0%, 95%);
+  background-color: hsl(0, 0%, 5%);
+  color: var(--text-color);
+  font-family: Menlo, Monaco, Consolas, "Andale Mono WT", "Andale Mono",
+    "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
+  font-size: 1rem;
+  margin: 0;
+}
+
+h1 {
+  font-size: 1rem;
+  text-align: center;
+}
+
+h1 a {
+  color: var(--text-color);
+}
+
+h1 a:not(:focus, :hover) {
+  text-decoration: none;
+}
+
+#terminal {
+  display: grid;
+}
+
+#terminal > * {
+  border: 0;
+  display: flex;
+  align-items: center;
+  height: 1rem;
+  padding: 0.5rem;
+}
+
+input {
+  background-color: hsl(0, 0%, 10%);
+  color: inherit;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid transparent;
+}
