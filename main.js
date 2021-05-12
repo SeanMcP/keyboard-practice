@@ -1,4 +1,9 @@
 (async function main() {
+  // CONSTANTS
+  const STORAGE_KEY = {
+    theme: "kbd_theme",
+  };
+
   // STATE
   const state = {
     name: "",
@@ -28,11 +33,18 @@
   }
 
   function handleClick(event) {
+    if (["INPUT", "LABEL"].includes(event.target.nodeName) || event.target.href) return;
+
     const el = document.getElementById("input");
-    if (el && !event.target.href) {
+    if (el) {
       event.preventDefault();
       el.focus();
     }
+  }
+
+  function handleSelectChange(event) {
+    localStorage.setItem(STORAGE_KEY.theme, event.target.value);
+    document.body.dataset.theme = event.target.value;
   }
 
   function printScore() {
@@ -75,6 +87,13 @@
 
   // SETUP
   window.addEventListener("click", handleClick);
+
+  const selectEl = document.querySelector('select[name="theme"]');
+  selectEl.addEventListener("change", handleSelectChange);
+
+  const theme = localStorage.getItem(STORAGE_KEY.theme) || "default";
+  document.body.dataset.theme = theme;
+  selectEl.value = theme;
 
   // PROGRAM
   echo("What is your name?");

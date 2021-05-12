@@ -1,6 +1,11 @@
-body {
+:root {
+  --background-color: hsl(0, 0%, 5%);
   --text-color: hsl(0, 0%, 95%);
-  background-color: hsl(0, 0%, 5%);
+  --highlight-color: hsl(0, 0%, 10%);
+}
+
+body {
+  background-color: var(--background-color);
   color: var(--text-color);
   font-family: Menlo, Monaco, Consolas, "Andale Mono WT", "Andale Mono",
     "Lucida Console", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
@@ -35,11 +40,40 @@ h1 a:not(:focus, :hover) {
 }
 
 input {
-  background-color: hsl(0, 0%, 10%);
+  background-color: var(--highlight-color);
   color: inherit;
   font: inherit;
 }
 
 input:focus {
   outline: 2px solid transparent;
+}
+
+select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  bottom: 1rem;
+  border: 1px solid var(--highlight-color);
+  color: var(--text-color);
+  position: fixed;
+  right: 1rem;
+}
+
+/* THEMES */
+
+body[data-theme="hacker"] {
+  --background-color: black;
+  --highlight-color: hsl(115, 100%, 5%);
+  --text-color: hsl(115, 100%, 50%);
+}
+
+body[data-theme="synthwave"] {
+  --text-values: 302, 100%, 65%;
+  --background-color: hsl(257, 100%, 5%);
+  --highlight-color: hsla(189, 100%, 50%, 10%);
+  --text-color: hsl(var(--text-values));
+
+  text-shadow: 0 0 4px hsla(var(--text-values), 75%);
 }

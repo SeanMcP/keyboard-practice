@@ -14,6 +14,17 @@
   <body>
     <main>
       <h1><a href="/">Keyboard Practice</a></h1>
+      <select name="theme">
+        <option value="default">Default</option>
+        <option value="hacker">Hacker</option>
+        <option value="synthwave">Synth wave</option>
+      </select>
+      <label><input type="radio" name="theme" id="default" value="default" />Default</label>
+      <label><input type="radio" name="theme" id="hacker" value="hacker" />Hacker</label>
+      <label>
+        <input type="radio" name="theme" id="synthwave" value="synthwave" />
+        Synthwave
+      </label>
       <div id="terminal"></div>
     </main>
     <script src="main.js" type="module"></script>
