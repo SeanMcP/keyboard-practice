@@ -27,6 +27,14 @@
     return character;
   }
 
+  function handleClick(event) {
+    const el = document.getElementById("input");
+    if (el && !event.target.href) {
+      event.preventDefault();
+      el.focus();
+    }
+  }
+
   function printScore() {
     let string = "";
 
@@ -40,6 +48,7 @@
   async function read(required = false) {
     return new Promise((resolve) => {
       const input = document.createElement("input");
+      input.id = "input";
 
       input.addEventListener("keypress", (event) => {
         if (event.key === "Enter") {
@@ -63,6 +72,9 @@
       setTimeout(resolve, duration);
     });
   }
+
+  // SETUP
+  window.addEventListener("click", handleClick);
 
   // PROGRAM
   echo("What is your name?");
