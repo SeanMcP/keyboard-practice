@@ -104,7 +104,8 @@
       answer = await read(true);
 
       if (answer !== character) {
-        echo("♻️ Try again!");
+        echo("🤔 Try again!");
+        await sleep(2000);
       }
     }
 
