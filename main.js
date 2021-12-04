@@ -96,7 +96,7 @@
   const name = await read(true);
   state.name = name;
 
-  echo("Practices characters (C) or words (W)?");
+  echo("Practice characters (C) or words (W)?");
   while (!state.mode) {
     const mode = await read(true);
     if (mode === "C" || mode === "W") {
@@ -106,7 +106,7 @@
     }
   }
 
-  echo("What reward are you working towards? (optional)");
+  echo("What reward are you working towards? (default: 🍓)");
   const reward = await read();
   if (reward) state.reward = reward;
 
