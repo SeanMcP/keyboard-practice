@@ -42,8 +42,12 @@
   }
 
   function handleClick(event) {
-    const el = document.getElementById("input");
-    if (el && !event.target.href) {
+    const el = document.querySelector("input");
+    if (
+      el &&
+      !event.target.href &&
+      document.activeElement.nodeName !== "INPUT"
+    ) {
       event.preventDefault();
       el.focus();
     }
@@ -59,7 +63,7 @@
     return string;
   }
 
-  async function read(required = false) {
+  function read(required = false) {
     return new Promise((resolve) => {
       const input = document.createElement("input");
       input.autocomplete = "off";
@@ -82,6 +86,50 @@
     });
   }
 
+  function readEmoji() {
+    return new Promise((resolve) => {
+      const options = ["🍓", "🍌", "🍇", "🍒", "🌭", "🍕", "⭐️", "💚"];
+      const fieldset = document.createElement("fieldset");
+      let innerHTML = "";
+      options.forEach((option, i) => {
+        innerHTML += `
+          <label>
+            <input checked="${
+              i === 0
+            }" type="radio" name="emoji" value="${option}" />
+            <span>${option}</span>
+          </label>
+        `;
+      });
+      fieldset.innerHTML = innerHTML;
+      terminal.appendChild(fieldset);
+      fieldset.querySelector("input").focus();
+
+      function cleanUp(selection) {
+        fieldset.remove();
+        echo(selection);
+        document.removeEventListener("keypress", handleKeyPress);
+        resolve(selection);
+      }
+
+      function handleKeyPress(event) {
+        if (
+          event.key === "Enter" &&
+          fieldset.contains(document.activeElement)
+        ) {
+          cleanUp(document.activeElement.value);
+        } else if (event.key === "Escape") {
+          cleanUp(options[0]);
+        }
+      }
+
+      // Wait for the previous event to complete before adding listener
+      setTimeout(() => {
+        document.addEventListener("keypress", handleKeyPress);
+      }, 0);
+    });
+  }
+
   async function sleep(duration) {
     return new Promise((resolve) => {
       setTimeout(resolve, duration);
@@ -98,7 +146,7 @@
 
   echo("Practice characters (C) or words (W)?");
   while (!state.mode) {
-    const mode = await read(true);
+    const mode = (await read(true)).toUpperCase();
     if (mode === "C" || mode === "W") {
       state.mode = mode;
     } else {
@@ -106,9 +154,9 @@
     }
   }
 
-  echo("What reward are you working towards? (default: 🍓)");
-  const reward = await read();
-  if (reward) state.reward = reward;
+  echo("What reward are you working towards?");
+  const reward = await readEmoji();
+  state.reward = reward;
 
   echo(`How many times do you want to practice? (default: ${state.rounds})`);
   const rounds = await read();

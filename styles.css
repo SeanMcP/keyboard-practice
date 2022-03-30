@@ -43,3 +43,28 @@ input {
 input:focus {
   outline: 2px solid transparent;
 }
+
+fieldset {
+  align-items: start !important;
+  flex-direction: column;
+}
+
+fieldset input[type="radio"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+fieldset label:focus-within::before {
+  content: ">";
+  color: var(--text-color);
+  position: fixed;
+}
+
+fieldset span {
+  margin-left: 1.5rem;
+}
