@@ -5,7 +5,7 @@
     mode: "",
     name: "",
     reward: "🍓",
-    rounds: 8,
+    rounds: 5,
     score: 0,
   };
 
